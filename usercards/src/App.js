@@ -1,16 +1,16 @@
 import React from "react";
+import MyCard from "./Components/MyCard";
+import FollowersCards from "./Components/FollowersCards";
+import { Container } from "./Components/Styles";
 import "./App.css";
 
 class App extends React.Component {
     render() {
         return (
-            <div className="App">
-                <header className="App-header">
-                    <p>App</p>
-                </header>
+            <Container>
                 <MyCard />
                 <FollowersCards />
-            </div>
+            </Container>
         );
     }
 }

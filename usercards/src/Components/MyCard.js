@@ -1,6 +1,10 @@
 import React from "react";
+import { Cards, Card, Name, Username } from "./Styles";
 
 class MyCard extends React.Component {
+    state = {
+        usercard: {}
+    };
     componentDidMount() {
         fetch("https://api.github.com/users/amsheppard2016")
             .then(res => res.json())
@@ -9,6 +13,7 @@ class MyCard extends React.Component {
                     "componenetdidmount:fetch:amsheppard2016:data",
                     data
                 );
+                this.setState({ usercard: data });
             })
             .catch(error => {
                 console.log("data not returned", error);
@@ -16,37 +21,28 @@ class MyCard extends React.Component {
     }
     render() {
         return (
-            <div className="my-card">
-                {/* <img src={image newUrl of user} />
-                <div class="card-info">
-                    <h3 class="name">{users name}</h3>
-        <p class="newUsername">{users user name}</p>
-        <p>Location: {users newLocation}</p>
-        <p>Profile:
-      <a href={address to users github page}>{address to users github page}</a>
-    </p>
-                <p>Followers: {users newFollowers count}</p>
-                <p>Following: {users newFollowing count}</p>
-                <p>Bio: {users newBio}</p> */}
-            </div>
+            // console.log("mycard, render,data", this.state.usercard),
+            <Cards>
+                <h1>My Github Card</h1>
+                <Card>
+                    <img alt="avatar" src={this.state.usercard.avatar_url} />
+                    <div className="my-card-info">
+                        <Name>{this.state.usercard.name}</Name>
+                        <Username>{this.state.usercard.login}</Username>
+                        <p>Location: {this.state.usercard.location}</p>
+                        <p>
+                            Profile:{" "}
+                            <a href={this.state.usercard.html_url}>
+                                {this.state.usercard.html_url}
+                            </a>
+                        </p>
+                        <p>Followers: {this.state.usercard.followers}</p>
+                        <p>Following: {this.state.usercard.following}</p>
+                        <p>Bio: {this.state.usercard.bio}</p>
+                    </div>
+                </Card>
+            </Cards>
         );
     }
 }
 export default MyCard;
-
-{
-    /* <div class="card">
-    <img src={image newUrl of user} />                                              ("src", response.data.avatar_url)
-  <div class="card-info">
-        <h3 class="name">{users name}</h3>                                               response.data.name
-        <p class="newUsername">{users user name}</p>                                    response.data.login
-        <p>Location: {users newLocation}</p>                                         response.data.location
-        <p>Profile:
-      <a href={address to users github page}>{address to users github page}</a>     ("href", response.data.html_url)
-    </p>
-    <p>Followers: {users newFollowers count}</p>                                        response.data.followers
-    <p>Following: {users newFollowing count}</p>                                        response.data.following
-    <p>Bio: {users newBio}</p>                                                          response.data.bio
-</div>
-</div > */
-}
